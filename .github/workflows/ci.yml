@@ -1,0 +1,31 @@
+on: push
+
+jobs:
+  cpp-gcc:
+    name: C++ (gcc)
+    runs-on: ubuntu-latest
+    container: gcc
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+          cd cpp/BFS
+          g++ -O3 --std=c++2a main.cpp BFS.cpp -o main
+      - name: Run
+        run: |
+          ./cpp/BFS/main
+  rust:
+    name: Rust
+    runs-on: ubuntu-latest
+    container: rust
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build
+        run: |
+          cd rust
+          cargo build --release --all-features
+      - name: Run
+        run: |
+          ./rust/target/release/bfs
